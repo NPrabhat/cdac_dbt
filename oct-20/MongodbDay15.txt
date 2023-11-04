@@ -1,0 +1,787 @@
+
+C:\Users\OPS>mongo
+MongoDB shell version v5.0.17
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("69aedd95-e2bf-4905-a123-853c3f1496d9") }
+MongoDB server version: 5.0.17
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+For installation instructions, see
+> use cdac
+switched to db cdac
+> show collections
+Student
+> db.Student.insert({'name':'Ramesh','lang':'Java','branch':'Mechanical'})
+Wrdb.Student.insertMany([{'name':'Suresh','lang':'Python'},{'name':'Dinesh','lang':'Ruby'},{'name':'Ganesh','lang':'Cpp','branch':'Production'}])thon'},{'name':'Dinesh','lang':'Rub'},{}]
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("6532512670d597a25d04d57a"),
+                ObjectId("6532512670d597a25d04d57b"),
+                ObjectId("6532512670d597a25d04d57c")
+        ]
+}
+> db.Student.find()
+{ "_id" : ObjectId("6532502f70d597a25d04d579"), "name" : "Ramesh", "lang" : "Java", "branch": "Mechanical" }
+{ "_id" : ObjectId("6532512670d597a25d04d57a"), "name" : "Suresh", "lang" : "Python" }
+{ "_id" : ObjectId("6532512670d597a25d04d57b"), "name" : "Dinesh", "lang" : "Ruby" }
+{ "_id" : ObjectId("6532512670d597a25d04d57c"), "name" : "Ganesh", "lang" : "Cpp", "branch" : "Production" }
+> db.Student.findone()
+uncaught exception: TypeError: db.Student.findone is not a function :
+@(shell):1:1
+> db.Student.findOne()
+{
+        "_id" : ObjectId("6532502f70d597a25d04d579"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical"
+}
+> db.Student.findOne({'name':'Suresh'})
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "lang" : "Python"
+}
+> db.Student.findOne().preety()
+uncaught exception: TypeError: db.Student.findOne(...).preety is not a function :
+@(shell):1:1
+> db.Student.findOne().pretty()
+uncaught exception: TypeError: db.Student.findOne(...).pretty is not a function :
+@(shell):1:1
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("6532502f70d597a25d04d579"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "lang" : "Python"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "lang" : "Ruby"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "lang" : "Cpp",
+        "branch" : "Production"
+}
+> db.Student.findOne({'lang':'Java'}).pretty()
+uncaught exception: TypeError: db.Student.findOne(...).pretty is not a function :
+@(shell):1:1
+> db.Student.findOne({'lang':'Java'}).pretty()
+uncaught exception: TypeError: db.Student.findOne(...).pretty is not a function :
+@(shell):1:1
+> db.Student.findOne({'lang':'Java'})
+{
+        "_id" : ObjectId("6532502f70d597a25d04d579"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical"
+}
+> db.Student.update({'name':'Ganesh'},{$set:{'lang':'Java'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.find()
+{ "_id" : ObjectId("6532502f70d597a25d04d579"), "name" : "Ramesh", "lang" : "Java", "branch": "Mechanical" }
+{ "_id" : ObjectId("6532512670d597a25d04d57a"), "name" : "Suresh", "lang" : "Python" }
+{ "_id" : ObjectId("6532512670d597a25d04d57b"), "name" : "Dinesh", "lang" : "Ruby" }
+{ "_id" : ObjectId("6532512670d597a25d04d57c"), "name" : "Ganesh", "lang" : "Java", "branch": "Production" }
+> db.Student.update({'name':'Ganesh'},{$set:{'lang':'Java','city':'Mumbai'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.find()
+{ "_id" : ObjectId("6532502f70d597a25d04d579"), "name" : "Ramesh", "lang" : "Java", "branch": "Mechanical" }
+{ "_id" : ObjectId("6532512670d597a25d04d57a"), "name" : "Suresh", "lang" : "Python" }
+{ "_id" : ObjectId("6532512670d597a25d04d57b"), "name" : "Dinesh", "lang" : "Ruby" }
+{ "_id" : ObjectId("6532512670d597a25d04d57c"), "name" : "Ganesh", "lang" : "Java", "branch": "Production", "city" : "Mumbai" }
+> db.Student.update({'name':'Bhavesh'},{$set:{'lang':'Java','city':'Mumbai'}},{upsert=true})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:83
+> db.Student.update({'name':'Bhavesh'},{$set:{'lang':'Java','city':'Mumbai'}},{upsert:true})
+WriteResult({
+        "nMatched" : 0,
+        "nUpserted" : 1,
+        "nModified" : 0,
+        "_id" : ObjectId("65325447a9bf790ded72e2ce")
+})
+> db.Student.find()
+{ "_id" : ObjectId("6532502f70d597a25d04d579"), "name" : "Ramesh", "lang" : "Java", "branch": "Mechanical" }
+{ "_id" : ObjectId("6532512670d597a25d04d57a"), "name" : "Suresh", "lang" : "Python" }
+{ "_id" : ObjectId("6532512670d597a25d04d57b"), "name" : "Dinesh", "lang" : "Ruby" }
+{ "_id" : ObjectId("6532512670d597a25d04d57c"), "name" : "Ganesh", "lang" : "Java", "branch": "Production", "city" : "Mumbai" }
+{ "_id" : ObjectId("65325447a9bf790ded72e2ce"), "name" : "Bhavesh", "city" : "Mumbai", "lang" : "Java" }
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("6532502f70d597a25d04d579"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "lang" : "Python"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "lang" : "Ruby"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "lang" : "Java",
+        "branch" : "Production",
+        "city" : "Mumbai"
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "lang" : "Java"
+}
+> db.Student.update({},{'lang':'language'})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.find().pretty()
+{ "_id" : ObjectId("6532502f70d597a25d04d579"), "lang" : "language" }
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "lang" : "Python"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "lang" : "Ruby"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "lang" : "Java",
+        "branch" : "Production",
+        "city" : "Mumbai"
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "lang" : "Java"
+}
+> db.Student.update({},{$rename:{'lang':'language'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.find().pretty()
+{ "_id" : ObjectId("6532502f70d597a25d04d579"), "language" : "language" }
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "lang" : "Python"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "lang" : "Ruby"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "lang" : "Java",
+        "branch" : "Production",
+        "city" : "Mumbai"
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "lang" : "Java"
+}
+> db.Student.update({'name':'Suresh'},{$rename:{'lang':'language'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.find().pretty()
+{ "_id" : ObjectId("6532502f70d597a25d04d579"), "language" : "language" }
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "language" : "Python"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "lang" : "Ruby"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "lang" : "Java",
+        "branch" : "Production",
+        "city" : "Mumbai"
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "lang" : "Java"
+}
+> db.Student.updateMany({},{$rename:{'lang':'language'}})
+{ "acknowledged" : true, "matchedCount" : 5, "modifiedCount" : 3 }
+> db.Student.find().pretty()
+{ "_id" : ObjectId("6532502f70d597a25d04d579"), "language" : "language" }
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "language" : "Python"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "language" : "Ruby"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "branch" : "Production",
+        "city" : "Mumbai",
+        "language" : "Java"
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "language" : "Java"
+}
+> db.Student.remove({'language':'language'})
+WriteResult({ "nRemoved" : 1 })
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "language" : "Python"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "language" : "Ruby"
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "branch" : "Production",
+        "city" : "Mumbai",
+        "language" : "Java"
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "language" : "Java"
+}
+> db.Student.updateMany({},{'age':23})
+uncaught exception: Error: the update operation document must contain atomic operators :
+DBCollection.prototype.updateMany@src/mongo/shell/crud_api.js:655:19
+@(shell):1:1
+> db.Student.updateMany({},{$set{'age':23}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:30
+> db.Student.updateMany({},{$set:{'age':23}})
+{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "language" : "Python",
+        "age" : 23
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "language" : "Ruby",
+        "age" : 23
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "branch" : "Production",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 23
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 23
+}
+> db.Student.updateMany({'name':'Bhavesh'},{$set:{'age':25}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.Student.updateMany({'name':'Ganesh'},{$set:{'age':35}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.Student.updateMany({'name':'Dinesh'},{$set:{'age':30}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "language" : "Python",
+        "age" : 23
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "language" : "Ruby",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "branch" : "Production",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 25
+}
+> db.Student.findMany({'age':{$lt:30}})
+uncaught exception: TypeError: db.Student.findMany is not a function :
+@(shell):1:1
+> db.Student.find({'age':{$lt:30}})
+{ "_id" : ObjectId("6532512670d597a25d04d57a"), "name" : "Suresh", "language" : "Python", "age" : 23 }
+{ "_id" : ObjectId("65325447a9bf790ded72e2ce"), "name" : "Bhavesh", "city" : "Mumbai", "language" : "Java", "age" : 25 }
+> db.Student.find({'age':{$lt:30}}).pretty()
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "language" : "Python",
+        "age" : 23
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 25
+}
+> db.Student.find({'age':{$lte:30}}).pretty()
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "language" : "Python",
+        "age" : 23
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "language" : "Ruby",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 25
+}
+> db.Student.find({'age':{$gte:30}}).pretty()
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "language" : "Ruby",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "branch" : "Production",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 35
+}
+> db.Student.find({'age':{$gt:30}}).pretty()
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "branch" : "Production",
+        "city" : "Mumbai",
+        "language" : "Java",
+  db.Student.insert({'name':'Ramesh','lang':'Java','branch':'Mechanical','phone':[90222220,34634544646,54235435435,45646546,64754547]})':'Java','branch':'Mechanical','phone':[90222220]})
+WriteResult({ "nInserted" : 1 })esh','lang':'Java','branch':'Mechanical','phone':[90222220]})
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "language" : "Python",
+        "age" : 23
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "language" : "Ruby",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "branch" : "Production",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 25
+}
+{
+        "_id" : ObjectId("6532591170d597a25d04d57d"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical",
+        "phone" : [
+                90222220,
+                34634544646,
+                54235435435,
+                45646546,
+                64754547
+        ]
+} db.Student.insert({'name':'Ramesh','lang':'Java','branch':'Mechanical','Address':{'houseNo'123,'city':'Ahmadabad','pincode':123323}}) :'Java','branch':'Mechanical','Address':{'hous'}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:91
+> db.Student.insert({'name':'Ramesh','lang':'Java','branch':'Mechanical','Address':{'houseNo'123,'city':'Ahmadabad','pincode':123323}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:91
+> db.Student.insert({'name':'Ramesh','lang':'Java','branch':'Mechanical','Address':{'houseNo':123,'city':'Ahmadabad','pincode':123323}})
+WriteResult({ "nInserted" : 1 })
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "language" : "Python",
+        "age" : 23
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "language" : "Ruby",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "branch" : "Production",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 25
+}
+{
+        "_id" : ObjectId("6532591170d597a25d04d57d"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical",
+        "phone" : [
+                90222220,
+                34634544646,
+                54235435435,
+                45646546,
+                64754547
+        ]
+}
+{
+        "_id" : ObjectId("65325a2170d597a25d04d57e"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical",
+        "Address" : {
+                "houseNo" : 123,
+                "city" : "Ahmadabad",
+                "pincode" : 123323
+        }
+}
+> db.Student.find()
+{ "_id" : ObjectId("6532512670d597a25d04d57a"), "name" : "Suresh", "language" : "Python", "age" : 23 }
+{ "_id" : ObjectId("6532512670d597a25d04d57b"), "name" : "Dinesh", "language" : "Ruby", "age" : 30 }
+{ "_id" : ObjectId("6532512670d597a25d04d57c"), "name" : "Ganesh", "branch" : "Production", "city" : "Mumbai", "language" : "Java", "age" : 35 }
+{ "_id" : ObjectId("65325447a9bf790ded72e2ce"), "name" : "Bhavesh", "city" : "Mumbai", "language" : "Java", "age" : 25 }
+{ "_id" : ObjectId("6532591170d597a25d04d57d"), "name" : "Ramesh", "lang" : "Java", "branch": "Mechanical", "phone" : [ 90222220, 34634544646, 54235435435, 45646546, 64754547 ] }
+{ "_id" : ObjectId("65325a2170d597a25d04d57e"), "name" : "Ramesh", "lang" : "Java", "branch": "Mechanical", "Address" : { "houseNo" : 123, "city" : "Ahmadabad", "pincode" : 123323 } }
+> db.Student.find().limit(2)
+{ "_id" : ObjectId("6532512670d597a25d04d57a"), "name" : "Suresh", "language" : "Python", "age" : 23 }
+{ "_id" : ObjectId("6532512670d597a25d04d57b"), "name" : "Dinesh", "language" : "Ruby", "age" : 30 }
+> db.Student.find().limit(2).skip(2)
+{ "_id" : ObjectId("6532512670d597a25d04d57c"), "name" : "Ganesh", "branch" : "Production", "city" : "Mumbai", "language" : "Java", "age" : 35 }
+{ "_id" : ObjectId("65325447a9bf790ded72e2ce"), "name" : "Bhavesh", "city" : "Mumbai", "language" : "Java", "age" : 25 }
+> db.Student.count({'language':'Java'})
+2
+> db.Student.find().sort({'age':1})
+{ "_id" : ObjectId("6532591170d597a25d04d57d"), "name" : "Ramesh", "lang" : "Java", "branch": "Mechanical", "phone" : [ 90222220, 34634544646, 54235435435, 45646546, 64754547 ] }
+{ "_id" : ObjectId("65325a2170d597a25d04d57e"), "name" : "Ramesh", "lang" : "Java", "branch": "Mechanical", "Address" : { "houseNo" : 123, "city" : "Ahmadabad", "pincode" : 123323 } }
+{ "_id" : ObjectId("6532512670d597a25d04d57a"), "name" : "Suresh", "language" : "Python", "age" : 23 }
+{ "_id" : ObjectId("65325447a9bf790ded72e2ce"), "name" : "Bhavesh", "city" : "Mumbai", "language" : "Java", "age" : 25 }
+{ "_id" : ObjectId("6532512670d597a25d04d57b"), "name" : "Dinesh", "language" : "Ruby", "age" : 30 }
+{ "_id" : ObjectId("6532512670d597a25d04d57c"), "name" : "Ganesh", "branch" : "Production", "city" : "Mumbai", "language" : "Java", "age" : 35 }
+> db.Student.find().sort({'age':-1})
+{ "_id" : ObjectId("6532512670d597a25d04d57c"), "name" : "Ganesh", "branch" : "Production", "city" : "Mumbai", "language" : "Java", "age" : 35 }
+{ "_id" : ObjectId("6532512670d597a25d04d57b"), "name" : "Dinesh", "language" : "Ruby", "age" : 30 }
+{ "_id" : ObjectId("65325447a9bf790ded72e2ce"), "name" : "Bhavesh", "city" : "Mumbai", "language" : "Java", "age" : 25 }
+{ "_id" : ObjectId("6532512670d597a25d04d57a"), "name" : "Suresh", "language" : "Python", "age" : 23 }
+{ "_id" : ObjectId("6532591170d597a25d04d57d"), "name" : "Ramesh", "lang" : "Java", "branch": "Mechanical", "phone" : [ 90222220, 34634544646, 54235435435, 45646546, 64754547 ] }
+{ "_id" : ObjectId("65325a2170d597a25d04d57e"), "name" : "Ramesh", "lang" : "Java", "branch": "Mechanical", "Address" : { "houseNo" : 123, "city" : "Ahmadabad", "pincode" : 123323 } }
+> db.Student.createIndex({'name':1})
+{
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "createdCollectionAutomatically" : false,
+        "ok" : 1
+}
+> db.Student.getIndex()
+uncaught exception: TypeError: db.Student.getIndex is not a function :
+@(shell):1:1
+> db.Student.getIndexes()
+[
+        {
+                "v" : 2,
+                "key" : {
+                        "_id" : 1
+                },
+                "name" : "_id_"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "name" : 1
+                },
+                "name" : "name_1"
+        }
+]
+> db.Student.createIndex({'age':1})
+{
+        "numIndexesBefore" : 2,
+        "numIndexesAfter" : 3,
+        "createdCollectionAutomatically" : false,
+        "ok" : 1
+}
+> db.Student.getIndexes()
+[
+        {
+                "v" : 2,
+                "key" : {
+                        "_id" : 1
+                },
+                "name" : "_id_"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "name" : 1
+                },
+                "name" : "name_1"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "age" : 1
+                },
+                "name" : "age_1"
+        }
+]
+> db.Student.dropIndexes('age':1)
+uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:28
+> db.Student.dropIndexes({'age':1})
+{ "nIndexesWas" : 3, "ok" : 1 }
+> db.Student.getIndexes()
+[
+        {
+                "v" : 2,
+                "key" : {
+                        "_id" : 1
+                },
+                "name" : "_id_"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "name" : 1
+                },
+                "name" : "name_1"
+        }
+]
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "language" : "Python",
+        "age" : 23
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "language" : "Ruby",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "branch" : "Production",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 25
+}
+{
+        "_id" : ObjectId("6532591170d597a25d04d57d"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical",
+        "phone" : [
+                90222220,
+                34634544646,
+                54235435435,
+                45646546,
+                64754547
+        ]
+}
+{
+        "_id" : ObjectId("65325a2170d597a25d04d57e"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical",
+        "Address" : {
+                "houseNo" : 123,
+                "city" : "Ahmadabad",
+                "pincode" : 123323
+        }
+}
+> db.Student.update({'name':'Bhavesh'},{$inc:{'age':5}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "language" : "Python",
+        "age" : 23
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "language" : "Ruby",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "branch" : "Production",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("6532591170d597a25d04d57d"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical",
+        "phone" : [
+                90222220,
+                34634544646,
+                54235435435,
+                45646546,
+                64754547
+        ]
+}
+{
+        "_id" : ObjectId("65325a2170d597a25d04d57e"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical",
+        "Address" : {
+                "houseNo" : 123,
+                "city" : "Ahmadabad",
+                "pincode" : 123323
+        }
+}
+> db.Student.update({'name':'Bhavesh'},{$inc:{'age':-5}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("6532512670d597a25d04d57a"),
+        "name" : "Suresh",
+        "language" : "Python",
+        "age" : 23
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57b"),
+        "name" : "Dinesh",
+        "language" : "Ruby",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("6532512670d597a25d04d57c"),
+        "name" : "Ganesh",
+        "branch" : "Production",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("65325447a9bf790ded72e2ce"),
+        "name" : "Bhavesh",
+        "city" : "Mumbai",
+        "language" : "Java",
+        "age" : 25
+}
+{
+        "_id" : ObjectId("6532591170d597a25d04d57d"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical",
+        "phone" : [
+                90222220,
+                34634544646,
+                54235435435,
+                45646546,
+                64754547
+        ]
+}
+{
+        "_id" : ObjectId("65325a2170d597a25d04d57e"),
+        "name" : "Ramesh",
+        "lang" : "Java",
+        "branch" : "Mechanical",
+        "Address" : {
+                "houseNo" : 123,
+                "city" : "Ahmadabad",
+                "pincode" : 123323
+        }
+}
+>

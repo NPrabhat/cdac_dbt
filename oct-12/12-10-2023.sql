@@ -126,7 +126,7 @@ begin
      
 	loop_label:loop
 		if x>10 then 
-			leave loop_label;
+			leave loop_label; #atleast 1 leave is required to break or end the loop otherwise the loop will iterate infinitely 
         end if;
         
         set x=x+1;
@@ -165,4 +165,5 @@ delimiter ;
 
 call TestRepeat();
 
-#*************************************************************************************************************************
+#***************************************************************************************************************************
+
